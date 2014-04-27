@@ -26,4 +26,4 @@ http://localhost:8080/
 * [Backbone](http://backbonejs.org/) for the front-end.
 * [RequireJS](http://requirejs.org/) for AMD.
 * [Google Maps API](https://developers.google.com/maps/documentation/javascript/) for displaying and searching for locations.
-* [Twitter Bootstrap]() for styles.
+* [Twitter Bootstrap](http://getbootstrap.com/) for styles.
