@@ -1,0 +1,42 @@
+html {
+	height: 100%;
+}
+		
+body {
+	height: 100%; 
+	margin: 0; 
+	padding-top: 50px;
+}
+
+/* front page */
+.jumbotron {
+	background: #E9ED77; /* brighter yellow = #F1E14D */
+}
+
+.jumbotron img {
+	width: 100%;
+	max-width: 450px;
+	border-radius: 100px;
+}
+
+/* map page */		
+#map-canvas {
+	height: 400px;
+}
+
+#list-container {
+	position: absolute;
+	right: 5px;
+	top: 80%;
+	margin-top: -195px;
+	height: 380px;
+	width: 200px;
+	padding: 5px;
+	z-index: 5;
+	background: #fff;
+	opacity: 0.9;
+}
+
+@media screen and (max-device-width: 480px) {
+
+}
