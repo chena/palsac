@@ -2,21 +2,29 @@
 require.config({
 	baseUrl: 'app',
 	
-	path: {
+	paths: {
 		// libraries
-		'backbone': 'js/lib/backbone-min',
-		'bootstrap': 'js/lib/bootstrap.min',
-		'jquery': 'js/lib/jquery-1.11.0.min',
-		'mustache': 'js/lib/mustache',
-		'require': 'js/lib/require',
-		'text': 'js/lib/text',
-		'underscore': 'js/lib/underscore-min',
+		backbone:	'js/lib/backbone',
+		bootstrap:	'js/lib/bootstrap.min',
+		jquery:		'js/lib/jquery-1.11.0.min',
+		mustache:	'js/lib/mustache',
+		require:	'js/lib/require',
+		text:		'js/lib/text',
+		underscore:	'js/lib/underscore-min',
+		
+		// google map API
+		async:		'js/lib/async',
+		gmap:		'js/lib/gmap',
+		
 		// paths for our modules
-		'router': 'js/router',
-		'model': 'js/model',
-		'view': 'js/view',
-		'templates': 'js/templates'
+		router:	'js/router',
+		util:	'js/util',
+		model:	'js/model',
+		view:	'js/view',
+		tpl:	'templates'
 	},
+	
+	// for libraries not supporting AMD
 	shim: {
 		'backbone': {
             // dependencies should be loaded before loading backbone.js
