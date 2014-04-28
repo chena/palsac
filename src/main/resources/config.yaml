@@ -1,3 +1,10 @@
 assets:
   overrides: 
     /app: src/main/resources/app
+
+server:
+  type: simple
+  applicationContextPath: /
+  connector:
+    type: http
+    port: 8080
