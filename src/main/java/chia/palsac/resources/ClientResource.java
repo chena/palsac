@@ -1,4 +1,4 @@
-package chia.palsac;
+package chia.palsac.resources;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +13,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 
 /**
- * Resource endpoint for serving the application index page
+ * Client endpoint for serving the application index page
  * 
  * @author alice.chen
  *

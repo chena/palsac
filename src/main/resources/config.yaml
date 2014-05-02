@@ -8,3 +8,8 @@ server:
   connector:
     type: http
     port: 8080
+    
+mongo:
+  host: localhost
+  port: 27017
+  db: palsac
