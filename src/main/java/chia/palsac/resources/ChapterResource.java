@@ -6,8 +6,10 @@ import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -19,6 +21,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 
 /**
  *  Resource endpoints  for {@link Chapter} 
@@ -45,7 +48,12 @@ public class ChapterResource {
 	
 	@POST
 	public Response addNewChapter(@Valid Chapter chapter) {
-		collection.insert(chapter);
+//		if (collection.find().is("userID", chapter.getUserID()).hasNext()) {
+//			// FIXME: throw ConstraintViolationException here?
+//			return Response.status(422).build() ;
+//		};
+		
+		collection.save(chapter);
 		return Response.status(Status.CREATED).entity(chapter).build();
 	}
 }
