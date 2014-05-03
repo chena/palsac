@@ -2,6 +2,8 @@ package chia.palsac;
 
 import java.net.UnknownHostException;
 
+import chia.palsac.mongo.MongoConfiguration;
+
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;

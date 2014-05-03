@@ -1,4 +1,4 @@
-package chia.palsac;
+package chia.palsac.mongo;
 
 import io.dropwizard.lifecycle.Managed;
 

@@ -1,4 +1,4 @@
-package chia.palsac;
+package chia.palsac.mongo;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
