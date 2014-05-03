@@ -44,14 +44,14 @@
 			<version>0.2.0-rc1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mongojack</groupId>
-			<artifactId>mongojack</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<dependency>
 			<groupId>com.hubspot.dropwizard</groupId>
 			<artifactId>dropwizard-guice</artifactId>
 			<version>0.7.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.vz.mongodb.jackson</groupId>
+			<artifactId>mongo-jackson-mapper</artifactId>
+			<version>1.4.1</version>
 		</dependency>
 	</dependencies>
 

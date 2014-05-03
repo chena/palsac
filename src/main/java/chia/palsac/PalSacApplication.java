@@ -8,7 +8,6 @@ import chia.palsac.resources.ClientResource;
 import com.bazaarvoice.dropwizard.assets.ConfiguredAssetsBundle;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.mongodb.DB;
-import com.mongodb.MongoClient;
 
 /**
  * Entry point of our Pal-Sac service
@@ -33,13 +32,7 @@ public class PalSacApplication extends Application<PalSacConfiguration> {
 	@Override
 	public void run(PalSacConfiguration config, Environment env)
 			throws Exception {
-
-//		MongoConfiguration mongoConfig = config.getMongoConfiguration();
-//		MongoClient mongo = new MongoClient(mongoConfig.getMongoHost(),
-//				mongoConfig.getMongoPort());
-//		DB database = mongo.getDB(mongoConfig.getMongoDB());
-//
-//		env.jersey().register(new ClientResource());
+		// nothing to do here - everything is handled by Guice auto configuration
 	}
 
 	public static void main(String[] args) throws Exception {

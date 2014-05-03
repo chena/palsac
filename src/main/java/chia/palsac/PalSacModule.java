@@ -6,7 +6,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.mongodb.DB;
-import com.mongodb.MongoClient;
+import com.mongodb.Mongo;
 
 public class PalSacModule implements Module {
 
@@ -20,12 +20,12 @@ public class PalSacModule implements Module {
 	}
 	
 	@Provides
-	public MongoClient provideMongoClient(MongoConfiguration mongoConfig) throws UnknownHostException {
-		return new MongoClient(mongoConfig.getHost(), mongoConfig.getPort());
+	public Mongo provideMongoClient(MongoConfiguration mongoConfig) throws UnknownHostException {
+		return new Mongo(mongoConfig.getHost(), mongoConfig.getPort());
 	}
 	
 	@Provides
-	public DB getMongoDB(MongoConfiguration mongoConfig, MongoClient mongo) {
+	public DB getMongoDB(MongoConfiguration mongoConfig, Mongo mongo) {
 		return mongo.getDB(mongoConfig.getDB());
 	}
 	

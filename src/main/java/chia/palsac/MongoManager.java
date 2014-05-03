@@ -5,7 +5,7 @@ import io.dropwizard.lifecycle.Managed;
 import java.net.UnknownHostException;
 
 import com.google.inject.Inject;
-import com.mongodb.MongoClient;
+import com.mongodb.Mongo;
 
 /**
  * Manages the life cycle of the MongoDB instance in the application.
@@ -15,11 +15,11 @@ import com.mongodb.MongoClient;
  */
 public class MongoManager implements Managed {
 	
-	private final MongoClient mongo;
+	private final Mongo mongo;
 	
 	@Inject
 	public MongoManager(MongoConfiguration config) throws UnknownHostException {
-		this.mongo = new MongoClient(config.getHost(), config.getPort());
+		this.mongo = new Mongo(config.getHost(), config.getPort());
 	}
 	
 	public void start() throws Exception {

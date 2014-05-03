@@ -4,19 +4,23 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Chapter {
 	
 	@NotBlank
-	private final String userID;
+	private String userID;
 	
 	@Email
 	@NotBlank
-	private final String email;
+	private String email;
 	
 	@URL
-	private final String groupURL;
+	private String groupURL;
 	
-	private final String eventType;
+	private String eventType;
+	
+	public Chapter() {};
 	
 	public Chapter(String userID, String email, String groupURL, String eventType) {
 		this.userID = userID;
