@@ -1,9 +1,18 @@
+{{#userID}}
 <li>
 	<a href="#">
-		<img src="https://graph.facebook.com/<%= userID %>/picture?width=32&height=32" width=18 height=18> 
-		<%= name %>
+		<img src="https://graph.facebook.com/{{userID}}/picture?width=32&height=32" width=18 height=18> 
+		{{fullName}}
 	</a>
 </li>
 <li>
 	<a href="#" class="logout">Logout</a>
 </li>
+{{/userID}}
+
+<!--  
+{{^userID}}
+<li>
+	<a href="#join">Login</a>
+</li>
+{{/userID}}-->
