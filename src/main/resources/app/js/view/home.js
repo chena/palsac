@@ -1,15 +1,14 @@
 define([
 	'backbone', 
 	'mustache', 
-	'underscore', 
 	'text!tpl/home.html'
-], function(Backbone, Mustache, _, HomeTemplate) {
+], function(Backbone, Mustache, HomeTemplate) {
 	
 	var HomeView = Backbone.View.extend({
-		template: _.template(HomeTemplate),
+		template: HomeTemplate,
 		
 		render: function() {
-			this.$el.html(this.template);
+			this.$el.html(Mustache.render(this.template));
 			return this;
 		}
 	});

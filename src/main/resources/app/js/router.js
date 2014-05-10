@@ -1,9 +1,9 @@
 define([
-	'jquery', 'backbone', 'model/user', 
+	'jquery', 'backbone', 'facebook', 
+	'model/user', 'model/chapter',
 	'view/home', 'view/login', 'view/map', 
-	'view/join', 'view/chapter', 
-	'util', 'facebook'
-], function($, Backbone, User, HomeView, LoginView, MapView, JoinView, ChapterView, Util, FB) {
+	'view/join', 'view/chapter', 'util', 
+], function($, Backbone, FB, User, Chapter, HomeView, LoginView, MapView, JoinView, ChapterView, Util) {
 	
 	return Backbone.Router.extend({
 		routes: {
@@ -35,11 +35,15 @@ define([
 						console.log('Good to see you, ' + response.name + '.');
 						var user = new User.Model({
 							userID: response.id, 
-							name: response.name 
+							fullName: response.name 
 						});
+						
 						that.showLogin(user);
+						that.showMainView(new ChapterView({
+							model: new Chapter.Model(),
+							user: user
+						}));
 					});
-					that.showMainView(new ChapterView());
 				} else {
 					that.showMainView(new JoinView());
 				}

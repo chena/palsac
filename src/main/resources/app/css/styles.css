@@ -44,6 +44,11 @@ body {
 	margin-top: 30px;
 }
 
+#fb-login {
+	margin-top: 30px;
+	text-align: center;
+}
+
 .form-group.required .control-label:after {
 	content: " *";
 	color: #c7254e;

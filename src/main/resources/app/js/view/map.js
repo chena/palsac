@@ -1,15 +1,15 @@
 define([
 	'backbone', 
-	'underscore', 
+	'mustache', 
 	'gmap', 
 	'text!tpl/map.html'
-], function(Backbone, _, Gmap, MapTemplate) {
+], function(Backbone, Mustache, Gmap, MapTemplate) {
 	
 	var MapView = Backbone.View.extend({
-		template: _.template(MapTemplate),
+		template: MapTemplate,
 		
 		render: function() {
-			this.$el.html(this.template);
+			this.$el.html(Mustache.render(this.template));
 			return this;
 		},
 		
