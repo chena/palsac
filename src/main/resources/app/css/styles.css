@@ -18,8 +18,7 @@ body {
 	max-width: 450px;
 	border-radius: 100px;
 }
-
-/* map page */		
+		
 #map-canvas {
 	height: 400px;
 }
@@ -35,6 +34,21 @@ body {
 	z-index: 5;
 	background: #fff;
 	opacity: 0.9;
+}
+
+#main {
+	min-height: 500px;	
+}
+
+#chapter-form {
+	margin-top: 30px;
+}
+
+.form-group.required .control-label:after {
+	content: " *";
+	color: #c7254e;
+	font-weight: strong;
+	font-size: 16px;
 }
 
 @media screen and (max-device-width: 480px) {
