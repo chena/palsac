@@ -34,7 +34,7 @@ define([
 					FB.api('/me', function(response) {
 						console.log('Good to see you, ' + response.name + '.');
 						var user = new User.Model({
-							userID: response.id, 
+							userId: response.id, 
 							fullName: response.name 
 						});
 						
