@@ -39,10 +39,14 @@ define([
 						});
 						
 						that.showLogin(user);
-						that.showMainView(new ChapterView({
+						
+						var chapterView = new ChapterView({
 							model: new Chapter.Model(),
 							user: user
-						}));
+						}) 
+						that.showMainView(chapterView);
+						chapterView.setAddressAutocomplete();
+						
 					});
 				} else {
 					that.showMainView(new JoinView());

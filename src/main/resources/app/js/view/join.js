@@ -19,7 +19,6 @@ define([
 		
 		login: function() {
 			FB.login(function(response) {
-				console.log('I\'m logged in!');
 				// FIXME: Backbone.history.navigate returns immediately
 				// when the path fragment is unchanged
 				Backbone.history.navigate('/', true); 

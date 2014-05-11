@@ -72,7 +72,6 @@ define([
 	      	
 	      	var onSearch = function() {
 		  		var place = autocomplete.getPlace();
-		  		console.log(place);
 		  		
 		  		if (place.geometry) {
 		  			var from = place.geometry.location,
