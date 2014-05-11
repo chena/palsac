@@ -4,7 +4,7 @@ define(['backbone'], function(Backbone) {
 	
 	User.Model = Backbone.Model.extend({
 		url: '/api/users',
-		id: 'userID'
+		id: 'userId'
 	});
 	
 	User.Collection = Backbone.Collection.extend({

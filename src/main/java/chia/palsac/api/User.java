@@ -12,14 +12,21 @@ import org.hibernate.validator.constraints.NotBlank;
 public class User {
 	
 	@NotBlank
-	private String userID;
+	private String userId;
+	
+	@NotBlank
+	private String fullName;
 	
 	@Email
 	@NotBlank
 	private String email;
 	
-	public String getUserID() {
-		return userID;
+	public String getUserId() {
+		return userId;
+	}
+	
+	public String getFullName() {
+		return fullName;
 	}
 	
 	public String getEmail() {

@@ -1,7 +1,12 @@
 package chia.palsac.api;
 
+import net.vz.mongodb.jackson.Id;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
+import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Representation of a chapter API object
@@ -9,28 +14,44 @@ import org.hibernate.validator.constraints.URL;
  * @author alice.chen
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Chapter {
 	
+	@Id
+	public String id;
+	
 	@NotBlank
-	private String userID;
+	private String userId;
 	
-	@URL
-	private String groupURL;
-	
-	private String eventType;
+	@NotBlank
+	private String name;
 	
 	@NotBlank
 	private String address;
+	
+	@NotBlank
+	private String eventType;
+	
+	//@SerializeWith()
+	//@DeserializeWith()
+	private DateTime startDateTime;
+	
+	//@SerializeWith()
+	//@DeserializeWith()
+	private DateTime endDateTime;
 
-	public String getUserID() {
-		return userID;
+	@URL
+	private String url;
+	
+	public String getUserId() {
+		return userId;
 	}
 	
-	public String getGroupURL() {
-		return groupURL;
+	public String getName() {
+		return name;
 	}
-	
-	public String eventType() {
+
+	public String getEventType() {
 		return eventType;
 	}
 	
@@ -38,4 +59,15 @@ public class Chapter {
 		return address;
 	}
 	
+	public DateTime getStartDateTime() {
+		return startDateTime;
+	}
+
+	public DateTime getEndDateTime() {
+		return endDateTime;
+	}
+	
+	public String getURL() {
+		return url;
+	}
 }
