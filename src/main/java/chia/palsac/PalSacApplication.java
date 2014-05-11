@@ -3,11 +3,9 @@ package chia.palsac;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import chia.palsac.resources.ClientResource;
 
 import com.bazaarvoice.dropwizard.assets.ConfiguredAssetsBundle;
 import com.hubspot.dropwizard.guice.GuiceBundle;
-import com.mongodb.DB;
 
 /**
  * Entry point of our Pal-Sac service
