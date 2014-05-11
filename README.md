@@ -1,6 +1,6 @@
 # Pal-Sac
 
-A web application for Post-A-Letter Social Activity Club (Pal-Sac), allowing people to see upcoming events or start a new club.
+A web application for Post-A-Letter Social Activity Club (Pal-Sac), allowing people to see upcoming events or start a new chapter.
 
 ## Usage
 
