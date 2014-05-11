@@ -23,7 +23,17 @@
 				<div class="form-group required">
 					<label class="col-md-3 control-label" for="address">Location Address</label>
 					<div class="col-md-9">
-						<input class="form-control" type="text" name="address" placeholder="Address of the location">
+						<input id="address-input" class="form-control" type="text" name="address" placeholder="Address of the location">
+					</div>
+				</div>
+				
+				<div class="form-group required">
+					<label class="col-md-3 control-label" for="eventType">Event Type</label>
+					<div class="col-md-9">
+						<select class="form-control">
+							<option val="popup">Pop-up</option>
+							<option val="recurring">Recurring</option>
+						</select>
 					</div>
 				</div>
 				
@@ -33,6 +43,8 @@
 						<input class="form-control" type="date" name="time">
 					</div>
 				</div>
+				
+				<!-- start time and end time -->
 				
 				<div class="form-group">
 					<label class="col-md-3 control-label" for="url">Facebook Page URL</label>
