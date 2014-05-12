@@ -19,11 +19,11 @@ body {
 	border-radius: 100px;
 }
 		
-#map-canvas {
+#mapCanvas {
 	height: 400px;
 }
 
-#list-container {
+#mapListContainer {
 	position: absolute;
 	right: 5px;
 	top: 80%;
@@ -40,11 +40,11 @@ body {
 	min-height: 500px;	
 }
 
-#chapter-form {
+#eventForm {
 	margin-top: 30px;
 }
 
-#fb-login {
+#fbLoginContainer {
 	margin-top: 30px;
 	text-align: center;
 }

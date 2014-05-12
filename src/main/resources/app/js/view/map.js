@@ -63,7 +63,7 @@ define([
 				mapTypeId: Gmap.MapTypeId.ROADMAP
 			};
 	  	
-	  		map = new Gmap.Map($('#map-canvas').get(0), mapOptions);
+	  		map = new Gmap.Map($('#mapCanvas').get(0), mapOptions);
 
 	  		// mark each location on the map
 	  		_.each(locations, function(location) {

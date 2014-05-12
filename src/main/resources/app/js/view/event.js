@@ -5,14 +5,14 @@ define([
 	'mustache', 
 	'gmap', 
 	'timepicker', 
-	'text!tpl/chapter/form.html'
-], function(Backbone, $, _, Mustache, Gmap, TimePicker, ChapterTemplate) {
-	var ChapterView = Backbone.View.extend({
-		template: ChapterTemplate,
+	'text!tpl/event/form.html'
+], function(Backbone, $, _, Mustache, Gmap, TimePicker, EventTemplate) {
+	var EventView = Backbone.View.extend({
+		template: EventTemplate,
 		
 		initialize: function(options) {
-			// Backbone 1.1.0 no longer automatically attach options passed to the constructor as this.options
-			// so we want to initialize it in the constructor here
+			// Backbone 1.1.0 is no longer automatically attaching options passed to the constructor 
+			// as this.options so we want to initialize it in the constructor here
 			this.options = options || {};
 			this.autocompelte = undefined;
 			
@@ -29,7 +29,11 @@ define([
 		},
 		
 		render: function() {
-			this.$el.html(Mustache.render(this.template));
+			var formData = {
+				user: this.options.user.toJSON(),
+				model: this.model.toJSON()
+			}
+			this.$el.html(Mustache.render(this.template, formData));
 			return this;
 		},
 		
@@ -48,15 +52,13 @@ define([
 				types: ['geocode']
 			});
 			
+			/*
 			var codeAddress = function() {
 				var place = autocomplete.getPlace();
 				console.log(place.geometry.location);
-				//var address = this.autocomplete.
-				
-				// TODO: different input for diff parts of address?
 			}
 			
-			Gmap.event.addListener(autocomplete, 'place_changed', codeAddress);
+			Gmap.event.addListener(autocomplete, 'place_changed', codeAddress);*/
 		},
 		
 		changed: function(event) {
@@ -73,7 +75,8 @@ define([
 			} else {
 				this.model.set(changed);
 			}
-
+			
+			// toggle form input based on event type
 			if (field === 'type' && value === 'recurring') {
 				$('#eventDateInput').hide();
 				$('#eventDescInput').show();
@@ -112,5 +115,5 @@ define([
 		}
 	});
 	
-	return ChapterView;
+	return EventView;
 });
