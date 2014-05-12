@@ -17,7 +17,8 @@ define([
 			var autocomplete, locations,
 				map, mapOptions, styles;
 			
-			// data
+			// test data
+			/*
 			locations = [
 				{
 					title: 'Our Town Cafe',
@@ -29,7 +30,25 @@ define([
 					address: '260 Adelaide St E, Toronto, ON M5A 1N1',
 					latLng: new Gmap.LatLng(43.652002, -79.370439)
 				}
-			];
+			];*/
+			
+			var geocoder = new Gmap.Geocoder();
+			
+			locations = this.collection.map(function(model) {
+				var address = model.get('address'),
+					latLan;
+				
+				geocoder.geocode({
+					address: address
+				}, function(results, status) {
+					console.log(results[0].geometry.location);
+				});
+				
+				return {
+					title: model.get('name'),
+					address: address
+				};
+			});
 			
 			styles = [{
 				stylers: [{
