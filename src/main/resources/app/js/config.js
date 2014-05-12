@@ -11,6 +11,8 @@ require.config({
 		require:	'js/lib/require',
 		text:		'js/lib/text',
 		underscore:	'js/lib/underscore-min',
+		moment:		'js/lib/moment.min',
+		timepicker:	'js/lib/bootstrap-datetimepicker.min',
 		
 		// third-party APIs
 		async:		'js/lib/async',

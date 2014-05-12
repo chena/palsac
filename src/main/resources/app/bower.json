@@ -1,13 +1,17 @@
 {
-	"name": "Pal-Sac App",
-	"version": "0.1",
-	"dependencies": {
-		"backbone": "~1.1.2",
-		"jquery": "~1.11",
-		"underscore": "~1.6",
-		"bootstrap": "~3.1.1",
-		"requirejs": "~2.1.11",
-		"requirejs-text": "~2.0.12",
-		"mustache": "latest"
-	}
+  "name": "Pal-Sac App",
+  "version": "0.1",
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "jquery": "~1.11",
+    "underscore": "~1.6",
+    "bootstrap": "~3.1.1",
+    "requirejs": "~2.1.11",
+    "requirejs-text": "~2.0.12",
+    "mustache": "latest",
+    "eonasdan-bootstrap-datetimepicker": "~3.0.0"
+  },
+  "resolutions": {
+    "bootstrap": ">= 3.0"
+  }
 }

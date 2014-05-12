@@ -1,60 +1,111 @@
 <div id="chapter-form" class="container">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-md-10 col-md-offset-1">
 		<div class="panel panel-default form-horizontal">
 			<div class="panel-heading">
-				<h3 class="panel-title">New Chapter</h3>
+				<h3 class="panel-title">New Event</h3>
 			</div>
 			
 			<div class="panel-body">
 				<div class="form-group required">
-					<label class="col-md-3 control-label" for="email">Contact Email</label>
-					<div class="col-md-9">
-						<input class="form-control" type="text" name="email" placeholder="Your email">
-					</div>
-				</div>
-	
-				<div class="form-group required">
-					<label class="col-md-3 control-label" for="address">Location Name</label>
-					<div class="col-md-9">
-						<input class="form-control" type="text" name="name" placeholder="Name of the location">
+					<label class="col-md-4 control-label" for="venueName">Venue Name</label>
+					<div class="col-md-8">
+						<input class="form-control" type="text" name="venueName">
 					</div>
 				</div>
 				
 				<div class="form-group required">
-					<label class="col-md-3 control-label" for="address">Location Address</label>
-					<div class="col-md-9">
-						<input id="address-input" class="form-control" type="text" name="address" placeholder="Address of the location">
+					<label class="col-md-4 control-label" for="address">Address</label>
+					<div class="col-md-8">
+						<input id="addressInput" class="form-control" type="text" name="address" placeholder="">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="website">Website</label>
+					<div class="col-md-8">
+						<input class="form-control" type="text" name="website">
 					</div>
 				</div>
 				
 				<div class="form-group required">
-					<label class="col-md-3 control-label" for="eventType">Event Type</label>
-					<div class="col-md-9">
-						<select class="form-control">
-							<option val="popup">Pop-up</option>
-							<option val="recurring">Recurring</option>
+					<label class="col-md-4 control-label" for="type">Event Type</label>
+					<div class="col-md-8">
+						<select id="eventTypeSelect" class="form-control" name="type">
+							<option value="popup">Pop-up</option>
+							<option value="recurring">Recurring</option>
 						</select>
 					</div>
 				</div>
 				
-				<div class="form-group required">
-					<label class="col-md-3 control-label" for="time">Time</label>
-					<div class="col-md-9">
-						<input class="form-control" type="date" name="time">
+				<div id="eventDateInput" class="form-group required">
+					<label class="col-md-4 control-label" for="date">Date</label>
+					<div class="col-md-8">
+						<div class="input-group datepicker" data-date-format="YYYY/MM/DD">
+							<input class="form-control" type="text" name="date">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar">
+							</span>
+						</div>
 					</div>
 				</div>
 				
-				<!-- start time and end time -->
+				<div id="eventDescInput" class="form-group required" hidden>
+					<label class="col-md-4 control-label" for=""description"">Description</label>
+					<div class="col-md-8">
+						<input class="form-control" type="text" name="description" placeholder="Eg. First Sunday of every month.">
+					</div>
+				</div>
+				
+				<div class="form-group form-inline required">
+					<label class="col-md-4 control-label" for="time">Time</label>
+					
+					<div class="col-md-4">
+						<div class="input-group timepicker">
+							<input class="form-control" type="text" name="startTime" placeholder="Start">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+
+					<div class="col-md-4"> 
+						<div class="input-group timepicker">
+							<input class="form-control" type="text" name="endTime" placeholder="End">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group required">
+					<label class="col-md-4 control-label" for="email">Organizer</label>
+					<div class="col-md-4">
+						<input class="form-control" type="text" name="name" placeholder="Full Name" value="{{user.fullName}}">
+					</div>
+					
+					<div class="col-md-4">
+						<input class="form-control" type="text" name="email" placeholder="Contact Email">
+					</div>
+				</div>
 				
 				<div class="form-group">
-					<label class="col-md-3 control-label" for="url">Facebook Page URL</label>
-					<div class="col-md-9">
-						<input class="form-control" type="text" name="url" placeholder="eg. https://facebook.com/pageName">
+					<label class="col-md-4 control-label" for="url">Facebook Page URL</label>
+					<div class="col-md-8">
+						<input class="form-control" type="text" name="url">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="note">Note</label>
+					<div class="col-md-8">
+						<textarea class="form-control" name="note"></textarea>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<div class="col-md-12 text-right">
+						<button class="cancel btn btn-default">Cancel</button>
 						<button type="submit" class="submit btn btn-primary">Submit</button>
 					</div>
 				</div>
@@ -62,37 +113,3 @@
 		</div>
 	</div>
 </div>
-
-<!-- <div class="container">
-	<div class="col-md-8 col-md-offset-2">
-		<h3>New Chapter</h3>
-		<div class="well form-horizontal">
-		<div class="form-group">
-			<label class="col-md-3 control-label" for="email">Contact Email</label>
-			<div class="col-md-9">
-				<input class="form-control" type="text" name="email" placeholder="your email">
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="col-md-3 control-label" for="address">Location</label>
-			<div class="col-md-9">
-				<input class="form-control" type="text" name="time" placeholder="address">
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<label class="col-md-3 control-label" for="time">Time</label>
-			<div class="col-md-9">
-				<input class="form-control" type="datetime" name="time">
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<div class="col-md-12 text-right">
-				<button type="submit" class="submit btn btn-primary btn-lg">Submit</button>
-			</div>
-		</div>
-		</div>
-	</div>
-</div>-->

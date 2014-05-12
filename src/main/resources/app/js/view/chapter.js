@@ -4,8 +4,9 @@ define([
 	'underscore',
 	'mustache', 
 	'gmap', 
+	'timepicker', 
 	'text!tpl/chapter/form.html'
-], function(Backbone, $, _, Mustache, Gmap, ChapterTemplate) {
+], function(Backbone, $, _, Mustache, Gmap, TimePicker, ChapterTemplate) {
 	var ChapterView = Backbone.View.extend({
 		template: ChapterTemplate,
 		
@@ -24,7 +25,7 @@ define([
 		events: {
 			'change input':		'changed',
 			'change select':	'changed',
-			'click .submit':	'submit'
+			'click .submit':	'submit',
 		},
 		
 		render: function() {
@@ -32,20 +33,39 @@ define([
 			return this;
 		},
 		
-		setAddressAutocomplete: function() {
+		initTimePicker: function() {
+			$('.datepicker').datetimepicker({
+                pickTime: false
+            });
+			$('.timepicker').datetimepicker({
+                pickDate: false
+            });
+		},
+		
+		initAddressAutocomplete: function() {
 			// Gmap setup needs to be done after the view is rendered
-			this.autocomplete = new Gmap.places.Autocomplete($('#address-input').get(0), {
+			var autocomplete = new Gmap.places.Autocomplete($('#addressInput').get(0), {
 				types: ['geocode']
 			});
-			Gmap.event.addListener(this.autocomplete, 'place_changed', this.fillInAddress);
+			
+			var codeAddress = function() {
+				var place = autocomplete.getPlace();
+				console.log(place.geometry.location);
+				//var address = this.autocomplete.
+				
+				// TODO: different input for diff parts of address?
+			}
+			
+			Gmap.event.addListener(autocomplete, 'place_changed', codeAddress);
 		},
 		
 		changed: function(event) {
 			var target = $(event.target),
 				field = target.context.name,
+				value = target.val(), 
 				changed = {};
 			
-			changed[field] = target.val();
+			changed[field] = value;
 			
 			// attach contact email to the user model
 			if (field === 'email') {
@@ -53,18 +73,24 @@ define([
 			} else {
 				this.model.set(changed);
 			}
+
+			if (field === 'type' && value === 'recurring') {
+				$('#eventDateInput').hide();
+				$('#eventDescInput').show();
+			} else {
+				$('#eventDescInput').hide();
+				$('#eventDateInput').show();
+			}
 		},
 		
-		fillInAddress: function() {
-			// TODO: different input for diff parts of address?
-		},
-		
-		submit: function(event) {
+		submit: function() {
 			// TODO: validation
 			
 			//this.options.user.save(function(response) {
 			//	console.log(response);
 			//});
+			
+			console.log(this.model.toJSON());
 			
 			var geocoder = new Gmap.Geocoder();
 			console.log(this.model.get('address'));
@@ -79,9 +105,10 @@ define([
 				}
 			});
 			
+			/*
 			this.model.save(function(response) {
 				console.log(response);
-			});
+			}); */
 		}
 	});
 	

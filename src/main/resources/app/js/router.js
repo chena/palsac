@@ -18,9 +18,19 @@ define([
 		},
 		
 		showMap: function() {
-			var mapView = new MapView();
-			this.showMainView(mapView);
-			mapView.setMap();
+			var that = this;
+			var chapters = new Chapter.Collection();
+			
+			chapters.fetch({
+				success: function() {
+					var mapView = new MapView({
+						collection: chapters
+					});
+					that.showMainView(mapView);
+					mapView.setMap();
+				}
+			});
+
 			this.selectMenuItem('.map');
 		},
 		
@@ -45,7 +55,8 @@ define([
 							user: user
 						}) 
 						that.showMainView(chapterView);
-						chapterView.setAddressAutocomplete();
+						chapterView.initAddressAutocomplete();
+						chapterView.initTimePicker();
 						
 					});
 				} else {
