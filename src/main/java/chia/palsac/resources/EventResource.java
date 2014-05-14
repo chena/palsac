@@ -13,43 +13,42 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import net.vz.mongodb.jackson.JacksonDBCollection;
-import chia.palsac.api.Chapter;
+import chia.palsac.api.Event;
 
 import com.google.inject.Inject;
 import com.mongodb.DB;
 
 /**
- *  Resource endpoints  for {@link Chapter} 
+ *  Resource endpoints  for {@link Event} 
  * 
  * @author alice.chen
  *
  */
-@Path("/api/chapters")
+@Path("/api/events")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ChapterResource {
+public class EventResource {
 	
-	private JacksonDBCollection<Chapter, String> collection;
+	private JacksonDBCollection<Event, String> collection;
 	
 	@Inject
-	public ChapterResource(DB mongoDB) {
-		this.collection = JacksonDBCollection.wrap(mongoDB.getCollection("chapters"), Chapter.class, String.class);
+	public EventResource(DB mongoDB) {
+		this.collection = JacksonDBCollection.wrap(mongoDB.getCollection("events"), Event.class, String.class);
 	}
 	
 	@GET
-	public List<Chapter> getAllChapeters() {
-		System.out.println(collection.find().iterator().next().getStartDateTime());
+	public List<Event> getAllChapeters() {
 		return collection.find().toArray();
 	}
 	
 	@POST
-	public Response addNewChapter(@Valid Chapter chapter) {
-//		if (collection.find().is("userId", chapter.getUserId()).hasNext()) {
+	public Response addNewEvent(@Valid Event event) {
+//		if (collection.find().is("userId", event.getUserId()).hasNext()) {
 //			// FIXME: throw ConstraintViolationException here?
 //			return Response.status(422).build() ;
 //		};
 		
-		collection.save(chapter);
-		return Response.status(Status.CREATED).entity(chapter).build();
+		collection.save(event);
+		return Response.status(Status.CREATED).entity(event).build();
 	}
 }

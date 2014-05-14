@@ -4,10 +4,8 @@ define(['backbone'], function(Backbone) {
 	
 	Event.Model = Backbone.Model.extend({
 		defaults: {
-			eventType: 'popup'
-		},
-		convertDateTime: function() {
-			
+			eventType: 'popup', 
+			active: true
 		}
 	});
 	
