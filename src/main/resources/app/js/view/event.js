@@ -1,19 +1,18 @@
 define([
 	'backbone', 
+	'bbnested',
 	'jquery',
 	'underscore',
 	'mustache', 
 	'gmap', 
 	'timepicker', 
 	'text!tpl/event/form.html'
-], function(Backbone, $, _, Mustache, Gmap, TimePicker, EventTemplate) {
+], function(Backbone, BackboneNested, $, _, Mustache, Gmap, TimePicker, EventTemplate) {
 	var EventView = Backbone.View.extend({
 		template: EventTemplate,
 		
 		initialize: function(options) {
-			// Backbone 1.1.0 is no longer automatically attaching options passed to the constructor 
-			// as this.options so we want to initialize it in the constructor here
-			this.options = options || {};
+			// for address input
 			this.autocompelte = undefined;
 			
 			/*
@@ -23,17 +22,14 @@ define([
 		},
 		
 		events: {
-			'change input':		'changed',
-			'change select':	'changed',
+			'change .event':	'changed',
+			'change .venue':	'venueChanged',
+			'change .organizer':'organizerChanged',
 			'click .submit':	'submit',
 		},
 		
 		render: function() {
-			var formData = {
-				user: this.options.user.toJSON(),
-				model: this.model.toJSON()
-			}
-			this.$el.html(Mustache.render(this.template, formData));
+			this.$el.html(Mustache.render(this.template, this.model.toJSON()));
 			return this;
 		},
 		
@@ -47,54 +43,86 @@ define([
 		},
 		
 		initAddressAutocomplete: function() {
+			var that = this;
+			
 			// Gmap setup needs to be done after the view is rendered
 			var autocomplete = new Gmap.places.Autocomplete($('#addressInput').get(0), {
 				types: ['geocode']
 			});
 			
-			/*
-			var codeAddress = function() {
-				var place = autocomplete.getPlace();
-				console.log(place.geometry.location);
+			// TODO: validate address
+			var bindAddress = function() {
+				var place = autocomplete.getPlace(),
+					geocode = place.geometry.location;
+				
+				that.model.set({
+					venue: {
+						address: place.formatted_address,
+						latitude: geocode.lat(),
+						longtitude: geocode.lng()
+					}
+				});
 			}
 			
-			Gmap.event.addListener(autocomplete, 'place_changed', codeAddress);*/
+			Gmap.event.addListener(autocomplete, 'place_changed', bindAddress);
 		},
 		
-		changed: function(event) {
-			var target = $(event.target),
-				field = target.context.name,
-				value = target.val(), 
+		venueChanged: function(event) {
+			this.changed(event, 'venue');
+		},
+		
+		organizerChanged: function(event) {
+			this.changed(event, 'organizer');
+		},
+		
+		changed: function(event, modelName) {
+			var target = event.target,
+				field = target.name,
+				value = target.value, 
 				changed = {};
 			
+			console.log(field);
 			changed[field] = value;
 			
-			// attach contact email to the user model
-			if (field === 'email') {
-				this.options.user.set(changed);
-			} else {
+			if (!modelName) {
 				this.model.set(changed);
-			}
-			
-			// toggle form input based on event type
-			if (field === 'type' && value === 'recurring') {
-				$('#eventDateInput').hide();
-				$('#eventDescInput').show();
+				
+				// toggle form input based on event type
+				if (field === 'type') {
+					if (value === 'recurring') {
+						$('#eventDateInput').hide();
+						$('#eventDescInput').show();
+					} else {
+						$('#eventDescInput').hide();
+						$('#eventDateInput').show();
+					} 
+				}
 			} else {
-				$('#eventDescInput').hide();
-				$('#eventDateInput').show();
+				var nestedModel = {};
+				nestedModel[modelName] = changed; 
+				this.model.set(nestedModel);
 			}
 		},
 		
 		submit: function() {
+			var model = this.model;
 			// TODO: validation
+			if (model.get('type') === 'popup') {
+				model.set({
+					date: $('[name="date"]').val()
+				});
+				model.unset('repeatDescription');
+			} else {
+				model.unset('date');
+			}
 			
-			//this.options.user.save(function(response) {
-			//	console.log(response);
-			//});
+			model.set({
+				startTime: $('[name="startTime"]').val(), 
+				endTime: $('[name="endTime"]').val(),
+			});
 			
-			console.log(this.model.toJSON());
 			
+			/*
 			var geocoder = new Gmap.Geocoder();
 			console.log(this.model.get('address'));
 			geocoder.geocode({
@@ -106,12 +134,12 @@ define([
 				} else {
 					console.log('invalid address');
 				}
-			});
+			});*/
 			
-			/*
+			
 			this.model.save(function(response) {
 				console.log(response);
-			}); */
+			}); 
 		}
 	});
 	

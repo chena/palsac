@@ -51,8 +51,7 @@ define([
 						that.showLogin(user);
 						
 						var eventView = new EventView({
-							model: new Event.Model(),
-							user: user
+							model: new Event.Model({userId: user.get('userId')}),
 						}) 
 						that.showMainView(eventView);
 						eventView.initAddressAutocomplete();

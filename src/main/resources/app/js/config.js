@@ -6,6 +6,7 @@ require.config({
 		// libraries
 		jquery:		'js/lib/jquery-1.11.0.min',		
 		backbone:	'js/lib/backbone',
+		bbnested:	'js/lib/backbone-nested.min',
 		bootstrap:	'js/lib/bootstrap.min',
 		mustache:	'js/lib/mustache',
 		require:	'js/lib/require',
@@ -29,21 +30,25 @@ require.config({
 	
 	// for libraries not supporting AMD
 	shim: {
-		'bootstrap': {
+		bootstrap: {
 			deps: ['jquery'],
 			exports: 'Bootstrap'
 		},
-		'backbone': {
+		backbone: {
             // dependencies should be loaded before loading backbone.js
             deps: ['underscore', 'jquery'],
             // once loaded, use the global 'Backbone' as the module value
             exports: 'Backbone'
         },
-        'underscore': {
+        underscore: {
             exports: '_'
         },
-        'facebook': {
+        facebook: {
         	exports: 'FB'
+        },
+        bbnested: {
+        	deps: ['backbone'],
+        	exports: 'BackboneNested'
         }
 	}
 });

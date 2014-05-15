@@ -7,30 +7,37 @@
 			
 			<div class="panel-body">
 				<div class="form-group required">
-					<label class="col-md-4 control-label" for="venueName">Venue Name</label>
+					<label class="col-md-4 control-label" for="title">Event Title</label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="venueName">
+						<input class="form-control event" type="text" name="title" maxlength="60">
+					</div>
+				</div>
+				
+				<div class="form-group required">
+					<label class="col-md-4 control-label" for="name">Venue Name</label>
+					<div class="col-md-8">
+						<input class="form-control venue" type="text" name="name">
 					</div>
 				</div>
 				
 				<div class="form-group required">
 					<label class="col-md-4 control-label" for="address">Address</label>
 					<div class="col-md-8">
-						<input id="addressInput" class="form-control" type="text" name="address" placeholder="">
+						<input id="addressInput" class="form-control venue" type="text" name="address" placeholder="">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="website">Website</label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="website">
+						<input class="form-control venue" type="text" name="website">
 					</div>
 				</div>
 				
 				<div class="form-group required">
 					<label class="col-md-4 control-label" for="type">Event Type</label>
 					<div class="col-md-8">
-						<select id="eventTypeSelect" class="form-control" name="type">
+						<select id="eventTypeSelect" class="form-control event" name="type">
 							<option value="popup">Pop-up</option>
 							<option value="recurring">Recurring</option>
 						</select>
@@ -41,18 +48,18 @@
 					<label class="col-md-4 control-label" for="date">Date</label>
 					<div class="col-md-8">
 						<div class="input-group datepicker" data-date-format="YYYY/MM/DD">
-							<input class="form-control" type="text" name="date">
+							<input class="form-control event" type="text" name="date">
 							<span class="input-group-addon">
-								<span class="glyphicon glyphicon-calendar">
+								<span class="glyphicon glyphicon-calendar"></span>
 							</span>
 						</div>
 					</div>
 				</div>
 				
-				<div id="eventDescInput" class="form-group required" hidden>
-					<label class="col-md-4 control-label" for=""description"">Description</label>
+				<div id="eventDescInput" class="form-group required" hidden="true">
+					<label class="col-md-4 control-label" for="repeatDescription">Description</label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="description" placeholder="Eg. First Sunday of every month.">
+						<input class="form-control event" type="text" name="repeatDescription" placeholder="Eg. First Sunday of every month.">
 					</div>
 				</div>
 				
@@ -61,7 +68,7 @@
 					
 					<div class="col-md-4">
 						<div class="input-group timepicker">
-							<input class="form-control" type="text" name="startTime" placeholder="Start">
+							<input class="form-control event" type="text" name="startTime" placeholder="Start">
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-time"></span>
 							</span>
@@ -70,7 +77,7 @@
 
 					<div class="col-md-4"> 
 						<div class="input-group timepicker">
-							<input class="form-control" type="text" name="endTime" placeholder="End">
+							<input class="form-control event" type="text" name="endTime" placeholder="End">
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-time"></span>
 							</span>
@@ -81,25 +88,25 @@
 				<div class="form-group required">
 					<label class="col-md-4 control-label" for="email">Organizer</label>
 					<div class="col-md-4">
-						<input class="form-control" type="text" name="name" placeholder="Full Name" value="{{user.fullName}}">
+						<input class="form-control organizer" type="text" name="name" placeholder="Full Name">
 					</div>
 					
 					<div class="col-md-4">
-						<input class="form-control" type="text" name="email" placeholder="Contact Email">
+						<input class="form-control organizer" type="text" name="email" placeholder="Contact Email">
 					</div>
 				</div>
 				
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="url">Facebook Page URL</label>
+					<label class="col-md-4 control-label" for="facebookPage">Facebook Page URL</label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="url">
+						<input class="form-control event" type="text" name="facebookPage">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="note">Note</label>
 					<div class="col-md-8">
-						<textarea class="form-control" name="note"></textarea>
+						<textarea class="form-control event" name="note"></textarea>
 					</div>
 				</div>
 				
