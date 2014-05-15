@@ -22,8 +22,11 @@ http://localhost:8080/
 
 ## Tech Stack
 
-* [Dropwizard](https://dropwizard.github.io/dropwizard/) for the back-end.
-* [Backbone](http://backbonejs.org/) for the front-end.
+* [Dropwizard](https://dropwizard.github.io/dropwizard/) for REST backend.
+* [MongoDB](http://www.mongodb.org/) for data storage.
+* [Guice](https://code.google.com/p/google-guice/) for dependency injection.
+* [Backbone](http://backbonejs.org/) for SPA frontend.
 * [RequireJS](http://requirejs.org/) for AMD.
 * [Google Maps API](https://developers.google.com/maps/documentation/javascript/) for displaying and searching for locations.
+* [Facebook API](https://developers.facebook.com/docs/javascript) for user login
 * [Twitter Bootstrap](http://getbootstrap.com/) for styles.
