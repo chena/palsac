@@ -43,11 +43,6 @@ public class EventResource {
 	
 	@POST
 	public Response addNewEvent(@Valid Event event) {
-//		if (collection.find().is("userId", event.getUserId()).hasNext()) {
-//			// FIXME: throw ConstraintViolationException here?
-//			return Response.status(422).build() ;
-//		};
-		
 		collection.save(event);
 		return Response.status(Status.CREATED).entity(event).build();
 	}
