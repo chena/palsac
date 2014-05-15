@@ -14,8 +14,8 @@ public class Organizer {
 	@NotBlank
 	private String name;
 	
-	@Email
 	@NotBlank
+	@Email
 	private String email;
 	
 	public String getName() {

@@ -35,18 +35,27 @@ define([
 			var geocoder = new Gmap.Geocoder();
 			
 			locations = this.collection.map(function(model) {
-				var address = model.get('address'),
-					latLan;
+				var venue = model.get('venue'),
+					address = venue.get('address'),
+					lat = venue.get('latitude'),
+					lng = venue.get('longtitude'),
+					latLng;
 				
+				if (lat && lng) {
+					latLng = new Gmap.LatLng(lat, lng);
+				}
+				
+				/*
 				geocoder.geocode({
 					address: address
 				}, function(results, status) {
 					console.log(results[0].geometry.location);
-				});
+				});*/
 				
 				return {
-					title: model.get('name'),
-					address: address
+					title: venue.get('name'),
+					address: address,
+					latLng: latLng
 				};
 			});
 			
@@ -87,7 +96,7 @@ define([
 	  		});
 
 	  		// handle location search
-	      	autocomplete = new Gmap.places.Autocomplete($('#search-box').get(0));
+	      	autocomplete = new Gmap.places.Autocomplete($('#searchBox').get(0));
 	      	
 	      	var onSearch = function() {
 		  		var place = autocomplete.getPlace();
