@@ -20,6 +20,10 @@ public class DateSerializer extends JsonSerializer<LocalDate> {
 	public void serialize(LocalDate date, JsonGenerator gen,
 			SerializerProvider arg2) throws IOException,
 			JsonProcessingException {
+		if (date == null) {
+			return;
+		}
+		
 		gen.writeObject(DateTimeUtil.DATE_FORMATTER.print(date));	
 	}
 }

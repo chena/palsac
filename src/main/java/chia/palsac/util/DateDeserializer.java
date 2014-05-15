@@ -2,6 +2,7 @@ package chia.palsac.util;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -21,7 +22,7 @@ public class DateDeserializer extends JsonDeserializer<LocalDate> {
 			throws IOException, JsonProcessingException {
 		
 		String input = parser.getText();
-		if (input == null) {
+		if (StringUtils.isBlank(input)) {
 			return null;
 		}
 		return DateTimeUtil.DATE_FORMATTER.parseLocalDate(input);
