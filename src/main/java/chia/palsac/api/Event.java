@@ -29,8 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  *
  */
 public class Event {
-	
-	// TODO: enum for event type
+
 	// TODO: validate date >= today
 	
 	@Id

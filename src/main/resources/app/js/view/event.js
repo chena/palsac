@@ -12,9 +12,6 @@ define([
 		template: EventTemplate,
 		
 		initialize: function(options) {
-			// for address input
-			this.autocompelte = undefined;
-			
 			/*
 			this.model.on('change', this.render, this);
 			_.bindAll(this, 'changed'); // bind the context to the view for the changed event handler
@@ -42,29 +39,57 @@ define([
             });
 		},
 		
+		autocomplete: undefined,
+		audocompleteAddr: undefined,
+		
 		initAddressAutocomplete: function() {
 			var that = this;
 			
 			// Gmap setup needs to be done after the view is rendered
-			var autocomplete = new Gmap.places.Autocomplete($('#addressInput').get(0), {
+			that.autocomplete = new Gmap.places.Autocomplete($('#addressInput').get(0), {
 				types: ['geocode']
 			});
 			
-			// TODO: validate address
-			var bindAddress = function() {
-				var place = autocomplete.getPlace(),
-					geocode = place.geometry.location;
+			var bindAddress =  function() {
+				var place = that.autocomplete.getPlace(),
+					geocode = place.geometry.location,
+					address = place.formatted_address;
 				
-				that.model.set({
-					venue: {
-						address: place.formatted_address,
-						latitude: geocode.lat(),
-						longtitude: geocode.lng()
-					}
+				that.model.setVenue({
+					address: address,
+					latitude: geocode.lat(),
+					longtitude: geocode.lng()
 				});
+				
+				that.audocompleteAddr = address;
 			}
 			
-			Gmap.event.addListener(autocomplete, 'place_changed', bindAddress);
+			Gmap.event.addListener(that.autocomplete, 'place_changed', bindAddress);
+		},
+		
+		codeAddress: function(address, callback) {
+			var that = this;
+			var geocoder = new Gmap.Geocoder();
+
+			geocoder.geocode({
+				'address': address
+			}, function(results, status) {
+				if (status == Gmap.GeocoderStatus.OK) {
+					var geocode = results[0];
+					console.log(status);
+					console.log(results);
+					
+					that.model.setVenue({
+						address: address,
+						latitude: geocode.lat(),
+						longtitude: geocode.lng()
+					});
+					
+					callback(true);
+				} else {
+					callback(false);
+				}
+			});
 		},
 		
 		venueChanged: function(event) {
@@ -106,7 +131,18 @@ define([
 		
 		submit: function() {
 			var model = this.model;
-			// TODO: validation
+			
+			// client side validation
+			/*
+			if (!model.isValid()) {
+				console.log(model.validationError);
+				return;
+			}*/
+			
+			var bbModel = model.get('venue') instanceof Backbone.Model;
+			console.log(bbModel);
+			
+			// bind date and time values
 			if (model.get('type') === 'popup') {
 				model.set({
 					date: $('[name="date"]').val()
@@ -121,25 +157,21 @@ define([
 				endTime: $('[name="endTime"]').val(),
 			});
 			
+			// address field is non-empty, validate it
+			var modelAddr = model.get('venue').get('address');
 			
-			/*
-			var geocoder = new Gmap.Geocoder();
-			console.log(this.model.get('address'));
-			geocoder.geocode({
-				'address': this.model.get('address')
-			}, function(results, status) {
-				console.log(status);
-				if (status == Gmap.GeocoderStatus.OK) {
-					console.log('valid address: ' + results[0].geometry.location);
-				} else {
-					console.log('invalid address');
-				}
-			});*/
+			console.log('model addr' + modelAddr);
+			console.log('autocomplete addr: ' + this.audocompleteAddr);
 			
-			
-			this.model.save(function(response) {
-				console.log(response);
-			}); 
+			if (!this.audocompleteAddr || this.audocompleteAddr != modelAddr) {
+				this.codeAddress(modelAddr, function(valid) {
+					console.log(valid);
+					if (!valid) {
+						console.log('invalid address!!');
+					}
+				});
+				
+			} 
 		}
 	});
 	
