@@ -27,19 +27,87 @@ define([
 		validate: function(attrs, options) {
 			var that = this,
 				badFields = [];
-				//errors = {},
-				//emptyMsg = 'cannot be empty';
 			
-			var requiredFields = ['title', 'venue.name', 'venue.address', 'organizer.name', 'startTime', 'endTime'];
+			var requiredFields = ['title', 'venue.name', 'venue.address', 
+			                      'organizer.name', 'organizer.email', 'startTime', 'endTime'];
 			
+			// validate required fields
 			requiredFields.forEach(function(field) {
-				if (that.isEmpty(attrs[field])) {
-					badFields.push(field);
-					//errors[field] = emptyMsg;
+				// check if the given field is in a nested model
+				var nested = that.getNestedModel(field);
+				if (nested) {
+					var model = nested.nestedModel,
+						fieldName = nested.fieldName;
+					
+					if (!model || that.isEmpty(model.attributes[fieldName])) {
+						badFields.push(field);
+					}
+				} else {
+					if (that.isEmpty(attrs[field])) {
+						badFields.push(field);
+					}
 				}
 			});
 			
-			return badFields.length == 0 ? null : badFields;
+			// validate required input based on selected event type
+			if (attrs.type == 'popup' && that.isEmpty(attrs.date)) {
+				badFields.push('date');
+			} else if (that.isEmpty(attrs.repeatDescription)) {
+				badFields.push('repeatDescription');
+			}
+			
+			// validate date if present
+			if (!_.contains(badFields, 'date')) {
+				if (!moment(attrs.date, 'YYYY/MM/DD').isValid()) {
+					badFields.push({
+						date: 'invalid date format (YYYY/MM/DD)'
+					});
+				} else if (moment(attrs.date).isBefore(moment().subtract('d', 1))) {
+					badFields.push({
+						date: 'date must be on or after today'
+					});
+				}
+			}
+			
+			// validate start and end times
+			var validTimes = true,
+				startTime = attrs.startTime,
+				endTime = attrs.endTime;
+			
+			if (!(_.contains(badFields, 'startTime') || moment(startTime, 'hh:mm a').isValid())) {
+				badFields.push({
+					startTime: 'invalid time'
+				});
+				validTimes = false;
+			}
+			
+			if (!(_.contains(badFields, 'endTime') || moment(endTime, 'hh:mm a').isValid())) {
+				badFields.push({
+					endTime: 'invalid time'
+				});
+				validTimes = false;
+			}
+			
+			if (validTimes && moment(startTime).isAfter(endTime)) {
+				badFields.push({
+					startTime: 'start time cannot be greater than end time'
+				});
+				badFields.push(endTime);
+			}
+			
+			return badFields.length == 0 ? false : badFields;
+		 },
+		 
+		 getNestedModel: function(field) {
+			 if (field.indexOf('.') == -1) {
+				 return false;
+			 }
+			 var parts = field.split('.');
+			 return {
+				 modelName: parts[0],
+				 fieldName: parts[1],
+				 nestedModel: this.get(parts[0])
+			 };			 
 		 },
 		 
 		 isEmpty: function(value) {

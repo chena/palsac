@@ -19,10 +19,9 @@ define([
 		},
 		
 		events: {
-			'change .event':	'changed',
-			'change .venue':	'venueChanged',
-			'change .organizer':'organizerChanged',
-			'click .submit':	'submit',
+			'change input, textarea, select': 'changed',
+			'click .submit': 'submit',
+			'click div.has-error input': 'hideThisError'
 		},
 		
 		render: function() {
@@ -100,16 +99,21 @@ define([
 			this.changed(event, 'organizer');
 		},
 		
-		changed: function(event, modelName) {
+		changed: function(event) {
 			var target = event.target,
 				field = target.name,
 				value = target.value, 
 				changed = {};
-			
-			console.log(field);
-			changed[field] = value;
-			
-			if (!modelName) {
+			console.log(target);
+			var nested = this.model.getNestedModel(field);
+
+			if (nested) {
+				changed[nested.fieldName] = value;
+				var nestedModel = {}
+				nestedModel[nested.modelName] = changed; 
+				this.model.set(nestedModel);
+			} else {
+				changed[field] = value;
 				this.model.set(changed);
 				
 				// toggle form input based on event type
@@ -122,25 +126,12 @@ define([
 						$('#eventDateInput').show();
 					} 
 				}
-			} else {
-				var nestedModel = {};
-				nestedModel[modelName] = changed; 
-				this.model.set(nestedModel);
 			}
 		},
 		
 		submit: function() {
-			var model = this.model;
-			
-			// client side validation
-			/*
-			if (!model.isValid()) {
-				console.log(model.validationError);
-				return;
-			}*/
-			
-			var bbModel = model.get('venue') instanceof Backbone.Model;
-			console.log(bbModel);
+			var model = this.model,
+				bbModel = model.get('venue') instanceof Backbone.Model;
 			
 			// bind date and time values
 			if (model.get('type') === 'popup') {
@@ -157,6 +148,27 @@ define([
 				endTime: $('[name="endTime"]').val(),
 			});
 			
+			// client side validation
+			if (!model.isValid()) {
+				var requiredErrors = model.validationError;
+				requiredErrors.forEach(function(errorField) {
+					if (_.isObject(errorField)) {
+						var field = Object.keys(errorField)[0],
+							msg = errorField[field];
+						var parent = $('[name="' + field + '"]').parent().parent();
+						parent.addClass('has-error');
+						parent.append($('<span/>', {
+							text: msg,
+							'class': 'help-block'
+						}));
+					} else {
+						$('[name="' + errorField + '"]').parent().addClass('has-error');
+					}
+				});
+				
+				return;
+			}
+			
 			// address field is non-empty, validate it
 			var modelAddr = model.get('venue').get('address');
 			
@@ -172,6 +184,10 @@ define([
 				});
 				
 			} 
+		},
+		
+		hideThisError: function(event) {
+			$(event.target).parent().removeClass('has-error');
 		}
 	});
 	

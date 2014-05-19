@@ -10,28 +10,27 @@
 					<label class="col-md-4 control-label" for="title">Event Title</label>
 					<div class="col-md-8">
 						<input class="form-control event" type="text" name="title" maxlength="60">
-						<span class="help-block"></span>
 					</div>
 				</div>
 				
 				<div class="form-group required">
 					<label class="col-md-4 control-label" for="name">Venue Name</label>
 					<div class="col-md-8">
-						<input class="form-control venue" type="text" name="name">
+						<input class="form-control venue" type="text" name="venue.name">
 					</div>
 				</div>
 				
 				<div class="form-group required">
 					<label class="col-md-4 control-label" for="address">Address</label>
 					<div class="col-md-8">
-						<input id="addressInput" class="form-control venue" type="text" name="address" placeholder="">
+						<input id="addressInput" class="form-control venue" type="text" name="venue.address" placeholder="">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="website">Website</label>
 					<div class="col-md-8">
-						<input class="form-control venue" type="text" name="website">
+						<input class="form-control venue" type="text" name="venue.website">
 					</div>
 				</div>
 				
@@ -62,6 +61,7 @@
 					<div class="col-md-8">
 						<input class="form-control event" type="text" name="repeatDescription" placeholder="Eg. First Sunday of every month.">
 					</div>
+					<span class="help-block"></span>
 				</div>
 				
 				<div class="form-group form-inline required">
@@ -89,11 +89,11 @@
 				<div class="form-group required">
 					<label class="col-md-4 control-label" for="email">Organizer</label>
 					<div class="col-md-4">
-						<input class="form-control organizer" type="text" name="name" placeholder="Full Name">
+						<input class="form-control organizer" type="text" name="organizer.name" placeholder="Full Name">
 					</div>
 					
 					<div class="col-md-4">
-						<input class="form-control organizer" type="text" name="email" placeholder="Contact Email">
+						<input class="form-control organizer" type="text" name="organizer.email" placeholder="Contact Email">
 					</div>
 				</div>
 				

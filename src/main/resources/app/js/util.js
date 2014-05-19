@@ -6,7 +6,15 @@ define(['backbone', 'facebook'], function(Backbone, FB) {
 			this.onClose();
 		}
 		this.remove(); // this will also unbind any events attached
-	}
+	};
+	
+	// add methods for showing and hiding validation errors
+	Backbone.View.prototype.showError = function(errors) {
+		if (this.onClose) {
+			this.onClose();
+		}
+		this.remove(); // this will also unbind any events attached
+	};
 	
 	// connect to Facebook API
 	FB.init({
