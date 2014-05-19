@@ -49,6 +49,13 @@ require.config({
         bbnested: {
         	deps: ['backbone'],
         	exports: 'BackboneNested'
+        },
+        timepicker: {
+        	deps: ['moment'],
+        	exports: 'TimePicker'
+        },
+        moment: {
+        	exports: 'Moment'
         }
 	}
 });

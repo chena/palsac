@@ -1,6 +1,6 @@
 define([
 	'backbone',
-	'bbnested'
+	'bbnested',
 ], function(Backbone, BackboneNested) {
 	
 	var Event = {};
@@ -88,7 +88,7 @@ define([
 				validTimes = false;
 			}
 			
-			if (validTimes && moment(startTime).isAfter(endTime)) {
+			if (validTimes && moment(startTime, 'hh:mm a').isAfter(moment(endTime, 'hh:mm a'))) {
 				badFields.push({
 					startTime: 'start time cannot be greater than end time'
 				});

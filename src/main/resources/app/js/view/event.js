@@ -21,7 +21,7 @@ define([
 		events: {
 			'change input, textarea, select': 'changed',
 			'click .submit': 'submit',
-			'click div.has-error input': 'hideThisError'
+			'click div.has-error *': 'clearThisError'
 		},
 		
 		render: function() {
@@ -30,12 +30,17 @@ define([
 		},
 		
 		initTimePicker: function() {
+			var that = this;
+			
 			$('.datepicker').datetimepicker({
                 pickTime: false
             });
 			$('.timepicker').datetimepicker({
                 pickDate: false
             });
+			$('.timepicker span, .datepicker span').click(function(event) {
+				that.clearThisError(event);
+			});
 		},
 		
 		autocomplete: undefined,
@@ -104,7 +109,7 @@ define([
 				field = target.name,
 				value = target.value, 
 				changed = {};
-			console.log(target);
+
 			var nested = this.model.getNestedModel(field);
 
 			if (nested) {
@@ -130,6 +135,8 @@ define([
 		},
 		
 		submit: function() {
+			this.clearAllErrors();
+			
 			var model = this.model,
 				bbModel = model.get('venue') instanceof Backbone.Model;
 			
@@ -151,12 +158,17 @@ define([
 			// client side validation
 			if (!model.isValid()) {
 				var requiredErrors = model.validationError;
+				console.log(requiredErrors);
 				requiredErrors.forEach(function(errorField) {
 					if (_.isObject(errorField)) {
 						var field = Object.keys(errorField)[0],
 							msg = errorField[field];
 						var parent = $('[name="' + field + '"]').parent().parent();
 						parent.addClass('has-error');
+						
+						// clear existing error msg
+						parent.find('span.help-block').remove();
+						
 						parent.append($('<span/>', {
 							text: msg,
 							'class': 'help-block'
@@ -177,7 +189,6 @@ define([
 			
 			if (!this.audocompleteAddr || this.audocompleteAddr != modelAddr) {
 				this.codeAddress(modelAddr, function(valid) {
-					console.log(valid);
 					if (!valid) {
 						console.log('invalid address!!');
 					}
@@ -186,9 +197,17 @@ define([
 			} 
 		},
 		
-		hideThisError: function(event) {
-			$(event.target).parent().removeClass('has-error');
+		clearThisError: function(event) {
+			var errorTarget = this.$(event.target).closest('.has-error');
+			errorTarget.removeClass('has-error');
+			errorTarget.find('.help-block').remove();
+		},
+		
+		clearAllErrors: function() {
+			this.$('.has-error').removeClass('has-error');
+			this.$('.help-block').remove();
 		}
+		
 	});
 	
 	return EventView;
