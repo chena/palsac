@@ -17,21 +17,6 @@ define([
 			var autocomplete, locations,
 				map, mapOptions, styles;
 			
-			// test data
-			/*
-			locations = [
-				{
-					title: 'Our Town Cafe',
-					address: '245 Broadway E, Vancouver, BC V5T 1W4',
-					latLng: new Gmap.LatLng(49.263151, -123.100135)
-				},
-				{
-					title: 'Toronto\'s First Post Office',
-					address: '260 Adelaide St E, Toronto, ON M5A 1N1',
-					latLng: new Gmap.LatLng(43.652002, -79.370439)
-				}
-			];*/
-			
 			var geocoder = new Gmap.Geocoder();
 			
 			locations = this.collection.map(function(model) {

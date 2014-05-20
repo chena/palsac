@@ -50,14 +50,17 @@ define([
 			});
 			
 			// validate required input based on selected event type
-			if (attrs.type == 'popup' && that.isEmpty(attrs.date)) {
-				badFields.push('date');
+			if (attrs.type == 'popup') {
+				var dateRequired = true;
+				if (that.isEmpty(attrs.date)) {
+					badFields.push('date');
+				}
 			} else if (that.isEmpty(attrs.repeatDescription)) {
 				badFields.push('repeatDescription');
 			}
 			
 			// validate date if present
-			if (!_.contains(badFields, 'date')) {
+			if (dateRequired && !_.contains(badFields, 'date')) {
 				if (!moment(attrs.date, 'YYYY/MM/DD').isValid()) {
 					badFields.push({
 						date: 'invalid date format (YYYY/MM/DD)'
@@ -72,23 +75,24 @@ define([
 			// validate start and end times
 			var validTimes = true,
 				startTime = attrs.startTime,
-				endTime = attrs.endTime;
+				endTime = attrs.endTime,
+				timeFormat = 'hh:mm a';
 			
-			if (!(_.contains(badFields, 'startTime') || moment(startTime, 'hh:mm a').isValid())) {
+			if (!(_.contains(badFields, 'startTime') || moment(startTime, timeFormat).isValid())) {
 				badFields.push({
 					startTime: 'invalid time'
 				});
 				validTimes = false;
 			}
 			
-			if (!(_.contains(badFields, 'endTime') || moment(endTime, 'hh:mm a').isValid())) {
+			if (!(_.contains(badFields, 'endTime') || moment(endTime, timeFormat).isValid())) {
 				badFields.push({
 					endTime: 'invalid time'
 				});
 				validTimes = false;
 			}
 			
-			if (validTimes && moment(startTime, 'hh:mm a').isAfter(moment(endTime, 'hh:mm a'))) {
+			if (validTimes && moment(startTime, 'hh:mm a').isAfter(moment(endTime, timeFormat))) {
 				badFields.push({
 					startTime: 'start time cannot be greater than end time'
 				});

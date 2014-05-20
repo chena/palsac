@@ -6,8 +6,9 @@ define([
 	'mustache', 
 	'gmap', 
 	'timepicker', 
+	'moment',
 	'text!tpl/event/form.html'
-], function(Backbone, BackboneNested, $, _, Mustache, Gmap, TimePicker, EventTemplate) {
+], function(Backbone, BackboneNested, $, _, Mustache, Gmap, TimePicker, Moment, EventTemplate) {
 	var EventView = Backbone.View.extend({
 		template: EventTemplate,
 		
@@ -33,10 +34,12 @@ define([
 			var that = this;
 			
 			$('.datepicker').datetimepicker({
-                pickTime: false
+                pickTime: false,
+                minDate: Moment().subtract('d', 1)
             });
 			$('.timepicker').datetimepicker({
-                pickDate: false
+                pickDate: false,
+                format: 'hh:mm a'
             });
 			$('.timepicker span, .datepicker span').click(function(event) {
 				that.clearThisError(event);
@@ -195,6 +198,10 @@ define([
 				});
 				
 			} 
+			
+			this.model.save(function(response) {
+				console.log(response);
+			}); 
 		},
 		
 		clearThisError: function(event) {
