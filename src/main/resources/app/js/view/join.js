@@ -19,10 +19,7 @@ define([
 		
 		login: function() {
 			FB.login(function(response) {
-				// FIXME: Backbone.history.navigate returns immediately
-				// when the path fragment is unchanged
-				Backbone.history.navigate('/', true); 
-				Backbone.history.navigate('join', true);
+				Backbone.history.loadUrl(Backbone.history.fragment);
 			});
 		}
 	});
