@@ -42,10 +42,9 @@ define([
 			FB.getLoginStatus(function(response) {
 				if (response.status === 'connected') {
 					FB.api('/me', function(response) {
-						console.log('Good to see you, ' + response.name + '.');
 						var user = new User.Model({
 							userId: response.id, 
-							fullName: response.name 
+							name: response.first_name 
 						});
 						
 						that.showLogin(user);
