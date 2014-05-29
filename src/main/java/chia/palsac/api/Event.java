@@ -2,7 +2,6 @@ package chia.palsac.api;
 
 import io.dropwizard.validation.ValidationMethod;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import net.vz.mongodb.jackson.Id;
@@ -11,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -36,24 +34,12 @@ public class Event {
 	public String id;
 	
 	@NotBlank
-	private String userId;
-	
-	@NotBlank
 	@Length(max = 60)
 	private String title;
-	
-	@NotNull
-	@Valid
-	private Venue venue;
-	
-	@NotBlank
-	private String type;
 	
 	@JsonSerialize(using = DateSerializer.class)
 	@JsonDeserialize(using = DateDeserializer.class)
 	private LocalDate date;
-	
-	private String repeatDescription;
 	
 	@NotBlank
 	private String startTime;
@@ -64,37 +50,11 @@ public class Event {
 	@NotNull
 	private Boolean active;
 	
-	@NotNull
-	@Valid
-	private Organizer organizer;
-	
-	@URL
-	private String facebookPage;
-	
-	private String note;
-	
-	public String getUserId() {
-		return userId;
-	}
-	
 	public String getTitle() {
 		return title;
 	}
-	
-	public Venue getVenue() {
-		return venue;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
 	public LocalDate getDate() {
 		return date;
-	}
-	
-	public String getRepeatDescription() {
-		return repeatDescription;
 	}
 	
 	public String getStartTime() {
@@ -107,18 +67,6 @@ public class Event {
 	
 	public Boolean getActive() {
 		return active;
-	}
-	
-	public Organizer getOrganizer() {
-		return organizer;
-	}
-	
-	public String getFacebookPage() {
-		return facebookPage;
-	}
-	
-	public String getNote() {
-		return note;
 	}
 	
 	@JsonIgnore
