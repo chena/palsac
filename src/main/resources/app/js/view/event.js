@@ -137,7 +137,7 @@ define([
 			}
 		},
 		
-		submit: function() {
+		submit: function() {			
 			this.clearAllErrors();
 			
 			var model = this.model,
@@ -201,6 +201,14 @@ define([
 			
 			this.model.save(function(response) {
 				console.log(response);
+				Backbone.history.navigate('map', true);
+				$('.alert-success').show();
+				$('.alert-success').append($('<p/>', {
+					text: 'Your event has been successfully added'
+				}));
+				setTimeout(function() {
+					$('.alert-success').empty().hide();
+				}, 3000);
 			}); 
 		},
 		
