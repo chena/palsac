@@ -4,8 +4,6 @@ import io.dropwizard.validation.ValidationMethod;
 
 import javax.validation.constraints.NotNull;
 
-import net.vz.mongodb.jackson.Id;
-
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;

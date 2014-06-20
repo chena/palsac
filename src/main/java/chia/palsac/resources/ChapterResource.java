@@ -14,9 +14,9 @@ import javax.ws.rs.core.Response.Status;
 
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import chia.palsac.api.Chapter;
+import chia.palsac.api.Venue;
 
 import com.google.inject.Inject;
-import com.mongodb.DB;
 
 /**
  *  Resource endpoints  for {@link Chapter} 
@@ -29,21 +29,22 @@ import com.mongodb.DB;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ChapterResource {
 	
-	private JacksonDBCollection<Chapter, String> collection;
+	private JacksonDBCollection<Chapter, String> chapterCollection;
 	
 	@Inject
-	public ChapterResource(DB mongoDB) {
-		this.collection = JacksonDBCollection.wrap(mongoDB.getCollection("chaoters"), Chapter.class, String.class);
+	public ChapterResource(JacksonDBCollection<Chapter, String> chapters, JacksonDBCollection<Venue, String> venues) {
+		this.chapterCollection = chapters;
 	}
 	
 	@GET
 	public List<Chapter> getAllChapeters() {
-		return collection.find().toArray();
+		return chapterCollection.find().toArray();
 	}
 	
 	@POST
 	public Response addNewChapter(@Valid Chapter chapter) {
-		collection.save(chapter);
-		return Response.status(Status.CREATED).entity(chapter).build();
+		return Response.status(Status.CREATED)
+				.entity(chapterCollection.save(chapter)
+				.getSavedObject()).build();
 	}
 }
