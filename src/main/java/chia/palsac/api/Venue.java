@@ -11,7 +11,6 @@ import org.hibernate.validator.constraints.URL;
  */
 public class Venue {
 	
-	@NotBlank
 	private String name;
 	
 	@NotBlank

@@ -2,8 +2,6 @@ package chia.palsac.api;
 
 import io.dropwizard.validation.ValidationMethod;
 
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
@@ -27,7 +25,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public class Event {
 
 	// TODO: validate date >= today
-	@NotBlank
 	@Length(max = 60)
 	private String title;
 		
@@ -40,9 +37,6 @@ public class Event {
 	
 	@NotBlank
 	private String endTime;
-	
-	@NotNull
-	private Boolean active;
 	
 	public String getTitle() {
 		return title;
@@ -58,10 +52,6 @@ public class Event {
 
 	public String getEndTime() {
 		return endTime;
-	}
-	
-	public Boolean getActive() {
-		return active;
 	}
 	
 	@JsonIgnore

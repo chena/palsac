@@ -41,7 +41,7 @@ public class Chapter {
 	@URL
 	private String facebookPage;
 	
-	private String note;
+	private String description;
 	
 	public String getUserId() {
 		return userId;
@@ -67,7 +67,7 @@ public class Chapter {
 		return facebookPage;
 	}
 	
-	public String getNote() {
-		return note;
+	public String getDescription() {
+		return description;
 	}
 }
