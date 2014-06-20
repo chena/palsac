@@ -18,7 +18,6 @@ public class Venue {
 	private String address;
 	
 	private double longtitude;
-	
 	private double latitude;
 	
 	@URL

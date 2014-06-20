@@ -1,5 +1,7 @@
 package chia.palsac.api;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -20,11 +22,7 @@ public class Chapter {
 	public String id;
 	
 	@NotBlank
-	private String userId;
-	
-	@NotNull
-	@Valid
-	private Event event;
+	private String userId; // the Facebook ID of chapter creator
 	
 	@NotNull
 	@Valid
@@ -35,7 +33,7 @@ public class Chapter {
 	
 	@NotNull
 	@Valid
-	private Organizer organizer;
+	private List<Organizer> organizers;
 	
 	@URL
 	private String facebookPage;
@@ -54,8 +52,8 @@ public class Chapter {
 		return active;
 	}
 	
-	public Organizer getOrganizer() {
-		return organizer;
+	public List<Organizer> getOrganizers() {
+		return organizers;
 	}
 	
 	public String getFacebookPage() {
