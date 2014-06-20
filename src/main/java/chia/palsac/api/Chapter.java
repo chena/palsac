@@ -35,6 +35,9 @@ public class Chapter {
 	@Valid
 	private List<Organizer> organizers;
 	
+	@Valid
+	private List<Event> events;
+	
 	@URL
 	private String facebookPage;
 	
@@ -56,6 +59,10 @@ public class Chapter {
 		return organizers;
 	}
 	
+	public List<Event> getEvents() {
+		return events;
+	}
+	
 	public String getFacebookPage() {
 		return facebookPage;
 	}
@@ -63,5 +70,4 @@ public class Chapter {
 	public String getNote() {
 		return note;
 	}
-	
 }

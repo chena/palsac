@@ -2,7 +2,6 @@ package chia.palsac.api;
 
 import io.dropwizard.validation.ValidationMethod;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import net.vz.mongodb.jackson.Id;
@@ -30,18 +29,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public class Event {
 
 	// TODO: validate date >= today
-	
-	@Id
-	public String id;
-	
 	@NotBlank
 	@Length(max = 60)
 	private String title;
-	
-	@NotNull
-	@Valid
-	private Chapter chapter;
-	
+		
 	@JsonSerialize(using = DateSerializer.class)
 	@JsonDeserialize(using = DateDeserializer.class)
 	private LocalDate date;
@@ -57,10 +48,6 @@ public class Event {
 	
 	public String getTitle() {
 		return title;
-	}
-	
-	public Chapter getChapter() {
-		return chapter;
 	}
 	
 	public LocalDate getDate() {
