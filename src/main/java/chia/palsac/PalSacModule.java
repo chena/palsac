@@ -2,6 +2,10 @@ package chia.palsac;
 
 import java.net.UnknownHostException;
 
+import net.vz.mongodb.jackson.JacksonDBCollection;
+import chia.palsac.api.Chapter;
+import chia.palsac.api.Event;
+import chia.palsac.api.Venue;
 import chia.palsac.mongo.MongoConfiguration;
 
 import com.google.inject.Binder;
@@ -31,4 +35,18 @@ public class PalSacModule implements Module {
 		return mongo.getDB(mongoConfig.getDB());
 	}
 	
+	@Provides
+	public JacksonDBCollection<Chapter, String> getChaptersCollection(DB mongoDB) {
+		return JacksonDBCollection.wrap(mongoDB.getCollection("chapters"), Chapter.class, String.class);
+	}
+	
+	@Provides
+	public JacksonDBCollection<Venue, String> getVenuesCollection(DB mongoDB) {
+		return JacksonDBCollection.wrap(mongoDB.getCollection("venues"), Venue.class, String.class);
+	}
+	
+	@Provides
+	public JacksonDBCollection<Event, String> getEventsCollection(DB mongoDB) {
+		return JacksonDBCollection.wrap(mongoDB.getCollection("events"), Event.class, String.class);
+	}
 }
