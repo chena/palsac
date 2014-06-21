@@ -1,9 +1,9 @@
 define([
 	'jquery', 'backbone', 'facebook', 
-	'model/user', 'model/event',
+	'model/user', 'model/chapter',
 	'view/home', 'view/login', 'view/map', 
-	'view/join', 'view/event', 'util', 
-], function($, Backbone, FB, User, Event, HomeView, LoginView, MapView, JoinView, EventView, Util) {
+	'view/join', 'view/chapter', 'util', 
+], function($, Backbone, FB, User, Chapter, HomeView, LoginView, MapView, JoinView, ChapterView, Util) {
 	
 	return Backbone.Router.extend({
 		routes: {
@@ -19,12 +19,12 @@ define([
 		
 		showMap: function() {
 			var that = this;
-			var events = new Event.Collection();
+			var chapters = new Chapter.Collection();
 			
-			events.fetch({
+			chapters.fetch({
 				success: function() {
 					var mapView = new MapView({
-						collection: events
+						collection: chapters
 					});
 					that.showMainView(mapView);
 					mapView.setMap();
@@ -49,12 +49,12 @@ define([
 						
 						that.showLogin(user);
 						
-						var eventView = new EventView({
-							model: new Event.Model({userId: user.get('userId')}),
+						var chapterView = new ChapterView({
+							model: new Chapter.Model({userId: user.get('userId')}),
 						}) 
-						that.showMainView(eventView);
-						eventView.initAddressAutocomplete();
-						eventView.initTimePicker();
+						that.showMainView(chapterView);
+						chapterView.initAddressAutocomplete();
+						//chapterView.initTimePicker();
 						
 					});
 				} else {

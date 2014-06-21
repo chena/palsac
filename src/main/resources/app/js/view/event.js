@@ -7,7 +7,7 @@ define([
 	'gmap', 
 	'timepicker', 
 	'moment',
-	'text!tpl/event/form.html'
+	'text!tpl/chapter.html'
 ], function(Backbone, BackboneNested, $, _, Mustache, Gmap, TimePicker, Moment, EventTemplate) {
 	var EventView = Backbone.View.extend({
 		template: EventTemplate,
