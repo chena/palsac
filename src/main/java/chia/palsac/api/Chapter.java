@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import net.vz.mongodb.jackson.Id;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
@@ -23,6 +24,10 @@ public class Chapter {
 	
 	@NotBlank
 	private String userId; // the Facebook ID of chapter creator
+	
+	@NotBlank
+	@Length(max = 30)
+	private String name;
 	
 	@NotNull
 	@Valid
@@ -45,6 +50,10 @@ public class Chapter {
 	
 	public String getUserId() {
 		return userId;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public Venue getVenue() {
