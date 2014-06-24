@@ -10,7 +10,7 @@ define([
 	'text!tpl/chapter.html',
 	'text!tpl/organizer.html'
 ], function(Backbone, BackboneNested, $, _, Mustache, Gmap, TimePicker, Moment, ChapterTemplate, OrganizerTemplate) {
-	var EventView = Backbone.View.extend({
+	var ChapterView = Backbone.View.extend({
 		template: ChapterTemplate,
 		
 		events: {
@@ -193,5 +193,5 @@ define([
 		
 	});
 	
-	return EventView;
+	return ChapterView;
 });
