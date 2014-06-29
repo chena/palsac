@@ -78,14 +78,6 @@ define([
 			});
 		},
 		
-		venueChanged: function(event) {
-			this.changed(event, 'venue');
-		},
-		
-		organizerChanged: function(event) {
-			this.changed(event, 'organizer');
-		},
-		
 		changed: function(event) {
 			var target = event.target,
 				field = target.name,
@@ -119,7 +111,7 @@ define([
 		addOrganizer: function(event) {
 			event.preventDefault();
 			this.$('.another').remove(); // remove other add anchor
-			this.$('#organizers').append(Mustache.render(OrganizerTemplate));
+			this.$('.organizers').append(Mustache.render(OrganizerTemplate));
 		},
 		
 		submit: function() {			
