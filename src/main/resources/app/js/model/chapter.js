@@ -13,10 +13,16 @@ define([
 		},
 		
 		relations: {
-			organizer: Backbone.Model,
+			organizer: Backbone.Collection,
 			venue: Backbone.Model,
 			events: Backbone.Collection
 		},
+		
+		setOrganizers: function(organizers) {
+			this.set({
+				organizers: organizers
+			});
+		}, 
 		
 		setVenue: function(venue) {
 			this.set({
