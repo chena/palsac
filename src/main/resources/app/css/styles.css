@@ -40,6 +40,10 @@ body {
 	min-height: 500px;	
 }
 
+#chapterForm {
+	margin-top: 30px;
+}
+
 #fbLoginContainer {
 	margin-top: 30px;
 	text-align: center;

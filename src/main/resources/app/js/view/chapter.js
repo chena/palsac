@@ -83,7 +83,12 @@ define([
 				field = target.name,
 				value = target.value, 
 				changed = {};
-
+			
+			// skip binding organizers info
+			if ($(event.target).hasClass('organizer')) {
+				return;
+			}
+			
 			var nested = this.model.getNestedModel(field);
 
 			if (nested) {
@@ -114,14 +119,36 @@ define([
 			this.$('.organizers').append(Mustache.render(OrganizerTemplate));
 		},
 		
-		submit: function() {			
+		submit: function() {
 			this.clearAllErrors();
 			var model = this.model;
+			
+			// bind organizers
+			var organizers = [],
+				organizer = {},
+				that = this;
+			
+			// TODO: move to utility
+			var isEmpty = function(obj) {
+				for (var field in obj) {
+					if (obj[field] && obj[field].trim().length > 0) {
+						return false;
+					}
+				}
+				return true;
+			};
+			
+			$('.organizer').each(function(index, item) {
+				organizer[item.name] = item.value;
+				if(index % 2 != 0 && !isEmpty(organizer)) {
+					organizers.push(_.clone(organizer));
+				}
+			});
+			model.setOrganizers(organizers);
 			
 			// client side validation
 			if (!model.isValid()) {
 				var requiredErrors = model.validationError;
-				console.log(requiredErrors);
 				requiredErrors.forEach(function(errorField) {
 					if (_.isObject(errorField)) {
 						var field = Object.keys(errorField)[0],
@@ -157,10 +184,9 @@ define([
 					}
 				});
 				
-			} 
+			}
 			
-			this.model.save(function(response) {
-				console.log(response);
+			model.save(function(response) {
 				Backbone.history.navigate('map', true);
 				$('.alert-success').show();
 				$('.alert-success').append($('<p/>', {
