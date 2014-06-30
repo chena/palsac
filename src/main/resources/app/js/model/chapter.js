@@ -40,7 +40,7 @@ define([
 			var that = this,
 				badFields = [];
 			
-			var requiredFields = ['name', 'venue.address'];
+			var requiredFields = ['name', 'venue.name', 'venue.address'];
 			
 			// validate required fields
 			requiredFields.forEach(function(field) {

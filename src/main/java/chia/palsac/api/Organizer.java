@@ -1,7 +1,6 @@
 package chia.palsac.api;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Representation of an organizer API object.
@@ -11,10 +10,8 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class Organizer {
 	
-	@NotBlank
 	private String name;
 	
-	@NotBlank
 	@Email
 	private String email;
 	
