@@ -190,7 +190,7 @@ define([
 				Backbone.history.navigate('map', true);
 				$('.alert-success').show();
 				$('.alert-success').append($('<p/>', {
-					text: 'Your event has been successfully added'
+					text: 'Your chapter has been successfully added'
 				}));
 				setTimeout(function() {
 					$('.alert-success').empty().hide();

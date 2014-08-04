@@ -9,7 +9,6 @@ define([
 		url: '/api/events',
 		
 		defaults: {
-			type: 'popup', 
 			active: true
 		},
 		
@@ -48,16 +47,6 @@ define([
 					}
 				}
 			});
-			
-			// validate required input based on selected event type
-			if (attrs.type == 'popup') {
-				var dateRequired = true;
-				if (that.isEmpty(attrs.date)) {
-					badFields.push('date');
-				}
-			} else if (that.isEmpty(attrs.repeatDescription)) {
-				badFields.push('repeatDescription');
-			}
 			
 			// validate date if present
 			if (dateRequired && !_.contains(badFields, 'date')) {
