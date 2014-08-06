@@ -15,6 +15,7 @@ define([
 		showHome: function() {
 			this.showMainView(new HomeView());
 			this.selectMenuItem('.home');
+			this.showLogin();
 		},
 		
 		showMap: function() {
@@ -64,6 +65,7 @@ define([
 		},
 		
 		showLogin: function(user) {
+			var user = user || new User.Model();
 			var loginView =  new LoginView({
 				model: user
 			});
