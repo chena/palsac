@@ -1,12 +1,18 @@
 {{#userId}}
-<li class="dropdown">
+<li class="logged-in">
 	<a href="#" data-toggle="dropdown" class="dropdown-toggle">
-		<!--<img src="https://graph.facebook.com/{{userId}}/picture?width=32&height=32" width=18 height=18>--> 
+		<img src="https://graph.facebook.com/{{userId}}/picture?width=32&height=32" width=18 height=18>
 		{{name}} <span class="caret"></span>
 	</a>
 	<ul class="dropdown-menu">
 		<li><a href="#" class="logout">Logout</a></li>
-		<li><a href="#" class="logout">List My Events</a></li>
+		<li><a href="#" class="logout">List My Chapters</a></li>
 	</ul>
+</li>
+{{/userId}}
+
+{{^userId}}
+<li class="logged-out">
+	<a href="#join">Log In</a>
 </li>
 {{/userId}}
