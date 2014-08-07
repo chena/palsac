@@ -59,8 +59,9 @@ define([
 	  	
 	  		map = new Gmap.Map($('#mapCanvas').get(0), mapOptions);
 
-	  		// mark each location on the map
+	  		// process each location
 	  		_.each(locations, function(location) {
+	  			// first mark each on the map
 	      		var marker = new Gmap.Marker({
 	      			position: location.latLng,
 	      			title: location.title,
@@ -78,6 +79,12 @@ define([
 					});
 					infoWindow.open(map,marker);
 	      		});
+	      		
+	      		// then list each in the side menu
+	      		console.log(Array.prototype.slice.call(locations)[0]);
+	      		$('.sidemenu').append($('<li>', {
+	      			text: marker.getTitle()
+	      		}));
 	  		});
 
 	  		// handle location search
